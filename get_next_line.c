@@ -6,13 +6,13 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:54:18 by mweerts           #+#    #+#             */
-/*   Updated: 2019/11/22 15:54:22 by mweerts          ###   ########.fr       */
+/*   Updated: 2019/11/22 17:13:18 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int get_line(char **str, char **line)
+static int	get_line(char **str, char **line)
 {
 	int		i;
 	char	*tmp;
@@ -39,7 +39,7 @@ static int get_line(char **str, char **line)
 	return (0);
 }
 
-int get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
 	char		buff[BUFFER_SIZE + 1];
 	static char	*tab[OPEN_MAX + 1];
@@ -63,22 +63,19 @@ int get_next_line(int fd, char **line)
 		else
 			tab[fd] = ft_strdup(buff);
 		if (ft_strchr(tab[fd], '\n'))
-			return (get_line(&tab[fd], line));
+			break ;
 	}
-	if (ret == 0 && tab[fd] && !ft_strchr(tab[fd], '\n'))
+	if (ret < 0)
+		return (-1);
+	if (ret == 0)
 	{
 		*line = ft_strdup(tab[fd]);
-		free(tab[fd]);
-		tab[fd] = NULL;
+		if (tab[fd])
+		{
+			free(tab[fd]);
+			tab[fd] = NULL;
+		}
 		return (0);
 	}
-	if (ret == 0 && !tab[fd])
-	{
-		*line = ft_strdup("");
-		return (0);
-	}
-	else if (ret < 0)
-		return (-1);
-	else
-		return (get_line(&tab[fd], line));
+	return (get_line(&tab[fd], line));
 }
