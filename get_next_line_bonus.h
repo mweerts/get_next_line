@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 18:13:40 by mweerts           #+#    #+#             */
-/*   Updated: 2019/11/22 15:26:07 by mweerts          ###   ########.fr       */
+/*   Created: 2019/11/22 15:57:54 by mweerts           #+#    #+#             */
+/*   Updated: 2019/11/22 18:51:28 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
-#include <fcntl.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-int main()
-{
-	int		fd;
-	char	*str;
-	int 	i;
+# include <stdlib.h>
+# include <limits.h>
+# include <fcntl.h>
+# include <unistd.h>
 
+int		get_next_line(int fd, char **line);
+size_t	ft_strlen(const char *s);
+char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
 
-	fd = open("test.txt", O_RDONLY);
-	while ((i = get_next_line(fd, &str)) > 0)
-	{
-		printf("[%d] %s\n", i, str);
-		free(str);
-	}
-	printf("[%d] %s", i, str);
-	free(str);	
-
-
-}
+#endif
