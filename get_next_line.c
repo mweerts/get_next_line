@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:54:18 by mweerts           #+#    #+#             */
-/*   Updated: 2019/11/22 17:13:18 by mweerts          ###   ########.fr       */
+/*   Updated: 2019/11/22 17:55:55 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,20 @@ static int	get_line(char **str, char **line)
 		*str = NULL;
 		return (1);
 	}
-	return (0);
+	return (-1);
 }
 
 int			get_next_line(int fd, char **line)
 {
-	char		buff[BUFFER_SIZE + 1];
+	//char		buff[BUFFER_SIZE + 1];
+	char		*buff;
 	static char	*tab[OPEN_MAX + 1];
 	int			ret;
 	char		*tmp;
 
 	if (fd < 0 || BUFFER_SIZE < 1 || !line)
+		return (-1);
+	if(!(buff = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
 	if (tab[fd] && ft_strchr(tab[fd], '\n'))
 		return (get_line(&tab[fd], line));
@@ -65,6 +68,7 @@ int			get_next_line(int fd, char **line)
 		if (ft_strchr(tab[fd], '\n'))
 			break ;
 	}
+	free(buff);
 	if (ret < 0)
 		return (-1);
 	if (ret == 0)
