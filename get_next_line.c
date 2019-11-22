@@ -5,16 +5,16 @@ static int get_line(char **str, char **line)
 	int		i;
 	char	*tmp;
 
-	if (!*str || !line)
-		return (-1);
 	i = 0;
+	if (!(*str))
+		return (-1);
 	while ((*str)[i] != '\n' && (*str)[i] != '\0')
 		i++;
 	*line = ft_substr(*str, 0, i);
 	if ((*str)[i] == '\n')
 	{
 		tmp = *str;
-		*str = ft_substr(tmp, i + 1, ft_strlen(tmp) + 1);
+		*str = ft_strdup(&tmp[i + 1]);
 		free(tmp);
 		return (1);
 	}
@@ -34,8 +34,10 @@ int get_next_line(int fd, char **line)
 	int			ret;
 	char		*tmp;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1 || !line)
 		return (-1);
+	if (tab[fd] && ft_strchr(tab[fd], '\n'))
+		return (get_line(&tab[fd], line));
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
@@ -51,8 +53,18 @@ int get_next_line(int fd, char **line)
 		if (ft_strchr(tab[fd], '\n'))
 			return (get_line(&tab[fd], line));
 	}
-	if (ret == 0 && tab[fd] == NULL)
+	if (ret == 0 && tab[fd] && !ft_strchr(tab[fd], '\n'))
+	{
+		*line = ft_strdup(tab[fd]);
+		free(tab[fd]);
+		tab[fd] = NULL;
 		return (0);
+	}
+	if (ret == 0 && !tab[fd])
+	{
+		*line = ft_strdup("");
+		return (0);
+	}
 	else if (ret < 0)
 		return (-1);
 	else

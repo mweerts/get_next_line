@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/22 12:18:16 by mweerts           #+#    #+#             */
+/*   Updated: 2019/11/22 15:09:35 by mweerts          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
@@ -18,17 +30,16 @@ char	*ft_strjoin(const char *s1, const char *s2)
 
 	i = 0;
 	j = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
+
 	ret = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (ret == NULL)
 		return (NULL);
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		ret[i] = s1[i];
 		i++;
 	}
-	while (s2[j])
+	while (s2 && s2[j])
 		ret[i++] = s2[j++];
 	ret[i] = '\0';
 	return (ret);
@@ -77,7 +88,13 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 
 	i = 0;
 	if (s == NULL)
-		return (NULL);
+	{
+		substr = malloc(sizeof(char));
+		if (substr == NULL)
+			return (NULL);
+		substr[0] = '\0';
+		return (substr);
+	}
 	substr = malloc(sizeof(char) * (len + 1));
 	if (substr == NULL)
 		return (NULL);

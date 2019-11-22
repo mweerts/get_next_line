@@ -1,8 +1,6 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define OPEN_MAX 10
-
 #include <stdlib.h>
 #include <limits.h>
 #include <fcntl.h>

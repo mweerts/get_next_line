@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:13:40 by mweerts           #+#    #+#             */
-/*   Updated: 2019/11/05 23:25:18 by mweerts          ###   ########.fr       */
+/*   Updated: 2019/11/22 15:26:07 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,17 @@ int main()
 {
 	int		fd;
 	char	*str;
+	int 	i;
 
-	fd = open("./fichiers/alphabet", O_RDONLY);
-	while (get_next_line(fd, &str))
+
+	fd = open("test.txt", O_RDONLY);
+	while ((i = get_next_line(fd, &str)) > 0)
 	{
-		printf("%s\n", str);
+		printf("[%d] %s\n", i, str);
 		free(str);
 	}
+	printf("[%d] %s", i, str);
+	free(str);	
+
+
 }
