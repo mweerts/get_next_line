@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:54:18 by mweerts           #+#    #+#             */
-/*   Updated: 2019/11/25 15:42:15 by mweerts          ###   ########.fr       */
+/*   Updated: 2019/11/25 15:42:34 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static int	ft_read(int fd, char **tab)
 
 int			get_next_line(int fd, char **line)
 {
-	char		*buff;
 	static char	*tab[OPEN_MAX + 1];
 	int			ret;
 
