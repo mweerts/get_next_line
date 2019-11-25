@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:54:18 by mweerts           #+#    #+#             */
-/*   Updated: 2019/11/22 17:55:55 by mweerts          ###   ########.fr       */
+/*   Updated: 2019/11/25 15:38:02 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,14 @@ static int	get_line(char **str, char **line)
 	return (-1);
 }
 
-int			get_next_line(int fd, char **line)
+static int	ft_read(int fd, char **tab)
 {
-	//char		buff[BUFFER_SIZE + 1];
-	char		*buff;
-	static char	*tab[OPEN_MAX + 1];
-	int			ret;
-	char		*tmp;
+	char	*buff;
+	char	*tmp;
+	int		ret;
 
-	if (fd < 0 || BUFFER_SIZE < 1 || !line)
+	if (!(buff = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
-	if(!(buff = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-		return (-1);
-	if (tab[fd] && ft_strchr(tab[fd], '\n'))
-		return (get_line(&tab[fd], line));
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
@@ -69,7 +63,23 @@ int			get_next_line(int fd, char **line)
 			break ;
 	}
 	free(buff);
-	if (ret < 0)
+	return (ret);
+}
+
+int			get_next_line(int fd, char **line)
+{
+	char		*buff;
+	static char	*tab[OPEN_MAX + 1];
+	int			ret;nr
+	char		*tmp;
+
+	if (fd < 0 || BUFFER_SIZE < 1 || !line)
+		return (-1);
+	if (!(buff = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+		return (-1);
+	if (tab[fd] && ft_strchr(tab[fd], '\n'))
+		return (get_line(&tab[fd], line));
+	if ((ret = ft_read(fd, tab)) < 0)
 		return (-1);
 	if (ret == 0)
 	{
