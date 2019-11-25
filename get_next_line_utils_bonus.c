@@ -6,11 +6,11 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 12:18:16 by mweerts           #+#    #+#             */
-/*   Updated: 2019/11/22 18:51:54 by mweerts          ###   ########.fr       */
+/*   Updated: 2019/11/25 23:42:28 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -49,6 +49,8 @@ char	*ft_strchr(const char *s, int c)
 	int		i;
 	char	*str;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	str = (char *)s;
 	while (str[i])

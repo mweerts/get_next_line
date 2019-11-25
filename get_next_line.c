@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:54:18 by mweerts           #+#    #+#             */
-/*   Updated: 2019/11/25 15:42:34 by mweerts          ###   ########.fr       */
+/*   Updated: 2019/11/25 23:40:49 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,26 @@ static int	get_line(char **str, char **line)
 	char	*tmp;
 
 	i = 0;
-	if (!(*str))
+	if (!(*str) || !str || !line)
 		return (-1);
 	while ((*str)[i] != '\n' && (*str)[i] != '\0')
 		i++;
-	*line = ft_substr(*str, 0, i);
+	if (!(*line = ft_substr(*str, 0, i)))
+		return (-1);
 	if ((*str)[i] == '\n')
 	{
 		tmp = *str;
 		*str = ft_strdup(&tmp[i + 1]);
 		free(tmp);
-		return (1);
+		if (!(*str))
+			return (-1);
 	}
 	else if ((*str)[i] == '\0')
 	{
 		free(*str);
 		*str = NULL;
-		return (1);
 	}
-	return (-1);
+	return (1);
 }
 
 static int	ft_read(int fd, char **tab)
@@ -71,7 +72,7 @@ int			get_next_line(int fd, char **line)
 	static char	*tab[OPEN_MAX + 1];
 	int			ret;
 
-	if (fd < 0 || BUFFER_SIZE < 1 || !line)
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || !line)
 		return (-1);
 	if (tab[fd] && ft_strchr(tab[fd], '\n'))
 		return (get_line(&tab[fd], line));
@@ -85,6 +86,8 @@ int			get_next_line(int fd, char **line)
 			free(tab[fd]);
 			tab[fd] = NULL;
 		}
+		if (!(*line))
+			return (-1);
 		return (0);
 	}
 	return (get_line(&tab[fd], line));

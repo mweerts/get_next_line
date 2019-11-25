@@ -6,16 +6,15 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:57:54 by mweerts           #+#    #+#             */
-/*   Updated: 2019/11/22 18:51:28 by mweerts          ###   ########.fr       */
+/*   Updated: 2019/11/25 23:41:53 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <limits.h>
-# include <fcntl.h>
 # include <unistd.h>
 
 int		get_next_line(int fd, char **line);
