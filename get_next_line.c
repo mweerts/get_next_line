@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:54:18 by mweerts           #+#    #+#             */
-/*   Updated: 2019/11/25 15:38:02 by mweerts          ###   ########.fr       */
+/*   Updated: 2019/11/25 15:39:50 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			get_next_line(int fd, char **line)
 {
 	char		*buff;
 	static char	*tab[OPEN_MAX + 1];
-	int			ret;nr
+	int			ret;
 	char		*tmp;
 
 	if (fd < 0 || BUFFER_SIZE < 1 || !line)
